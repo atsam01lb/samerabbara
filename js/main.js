@@ -1,5 +1,5 @@
 /* ============================================================
-   RELAX TIME TRADING — Main JS
+   RELAX TIME TRADING - Main JS
    Ticker tape, animated background (candles/particles), sticky
    header, mobile nav, scroll-reveal, animated counters, FAQ
    accordion, active-link highlighting, back-to-top, contact form.
@@ -261,13 +261,19 @@
   /* ---------------- contact form -> WhatsApp ---------------- */
   var contactForm = document.getElementById("contactForm");
   if (contactForm) {
+    var isArabic = (document.documentElement.lang || "").toLowerCase().indexOf("ar") === 0;
     contactForm.addEventListener("submit", function (e) {
       e.preventDefault();
       var name = document.getElementById("cf-name").value.trim();
       var phone = document.getElementById("cf-phone").value.trim();
       var interest = document.getElementById("cf-interest").value;
       var message = document.getElementById("cf-message").value.trim();
-      var text = "Hi Relax Time, my name is " + name + " (" + phone + "). I'm interested in: " + interest + ".";
+      var text;
+      if (isArabic) {
+        text = "مرحباً ريلاكس تايم، اسمي " + name + " (" + phone + "). أنا مهتم بـ: " + interest + ".";
+      } else {
+        text = "Hi Relax Time, my name is " + name + " (" + phone + "). I'm interested in: " + interest + ".";
+      }
       if (message) text += " " + message;
       var url = "https://wa.me/96181178540?text=" + encodeURIComponent(text);
       window.open(url, "_blank", "noopener");

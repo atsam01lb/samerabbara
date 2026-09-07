@@ -1,4 +1,4 @@
-# Relax Time Trading — robots.txt
+# Relax Time Trading - robots.txt
 # Standard search crawlers
 User-agent: *
 Allow: /

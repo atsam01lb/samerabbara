@@ -1,5 +1,5 @@
 /* ============================================================
-   RELAX TIME TRADING — Main Stylesheet
+   RELAX TIME TRADING - Main Stylesheet
    Design language carried over from the official coming-soon
    page: cream/gold/ink palette, Jost typeface, animated market
    motifs (ticker, chart lines, candles, particles).
@@ -198,6 +198,14 @@ section{ position:relative; z-index:2; }
 .nav__links a:hover, .nav__links a.is-active{ color:var(--ink); }
 .nav__links a:hover::after, .nav__links a.is-active::after{ right:0; }
 .nav__cta{ display:flex; align-items:center; gap:12px; }
+.lang-switch{
+  display:flex; align-items:center; gap:8px; font-size:12.5px; letter-spacing:.04em;
+  padding:6px 10px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.4);
+}
+.lang-switch__opt{ color:var(--ink-faint); font-weight:500; transition:color .2s ease; }
+.lang-switch__opt.is-active{ color:var(--gold-deep); }
+a.lang-switch__opt:hover{ color:var(--ink); }
+.lang-switch__sep{ color:var(--line); }
 .nav__toggle{
   display:none; flex-direction:column; gap:5px; background:none; border:none; padding:8px;
 }
@@ -603,6 +611,12 @@ section{ position:relative; z-index:2; }
 }
 .footer-legal{ display:flex; gap:18px; flex-wrap:wrap; }
 .footer-legal a:hover{ color:var(--gold-deep); }
+.footer-credit{ color:var(--ink-faint); }
+.footer-credit a{
+  color:var(--gold-deep); font-weight:500; text-decoration:none;
+  border-bottom:1px solid rgba(143,107,58,.35); transition:border-color .2s ease, color .2s ease;
+}
+.footer-credit a:hover, .footer-credit a:focus-visible{ color:var(--ink); border-color:var(--ink); }
 
 /* ---------- floating widgets ---------- */
 .floating-whatsapp{
@@ -653,3 +667,57 @@ section{ position:relative; z-index:2; }
   .section-tight{ padding:50px 0; }
   .cta-final{ padding:64px 20px; }
 }
+
+/* ============================================================
+   RTL (Arabic) overrides
+   Flex/grid rows already mirror automatically with dir="rtl";
+   these rules fix the pieces that don't: absolute-positioned
+   accents, physical-direction gradients, and script-specific
+   type. Loaded on both pages; only [dir="rtl"] pages match.
+   ============================================================ */
+[dir="rtl"] body{ font-family:'Cairo','Jost','Segoe UI',Tahoma,Arial,sans-serif; }
+[dir="rtl"] .nav__logo-text,
+[dir="rtl"] .hero__logo,
+[dir="rtl"] .ticker,
+[dir="rtl"] .ticker *{ font-family:'Jost','Segoe UI',Arial,sans-serif; }
+
+/* eyebrow flanking lines: keep the solid (gold) end nearest the label */
+[dir="rtl"] .eyebrow span{ background:linear-gradient(90deg, var(--gold), transparent); }
+[dir="rtl"] .eyebrow span:last-child{ background:linear-gradient(90deg, transparent, var(--gold)); }
+
+/* nav underline should grow from the reading-start (right) edge */
+[dir="rtl"] .nav__links a::after{ left:100%; right:0; }
+[dir="rtl"] .nav__links a:hover::after,
+[dir="rtl"] .nav__links a.is-active::after{ left:0; }
+
+/* bullet / checkmark accents sit on the start (right) side of their text */
+[dir="rtl"] .card ul li{ padding-left:0; padding-right:20px; }
+[dir="rtl"] .card ul li::before{ left:auto; right:0; }
+[dir="rtl"] .offer-card ul li{ padding-left:0; padding-right:22px; }
+[dir="rtl"] .offer-card ul li::before{ left:auto; right:0; }
+
+/* quote accent bar on the start (right) side */
+[dir="rtl"] .quote-compare .quote{
+  border-left:none; border-right:2px solid var(--gold);
+  border-radius:10px 0 0 10px;
+}
+
+/* corner badge mirrors to the opposite corner */
+[dir="rtl"] .offer-card__badge{ right:auto; left:16px; }
+
+/* mobile vertical timeline connector follows the mirrored dot column */
+[dir="rtl"] .timeline__line{ left:auto; right:27px; }
+
+/* floating action buttons sit on the trailing (left) side in RTL */
+[dir="rtl"] .floating-whatsapp{ right:auto; left:22px; }
+[dir="rtl"] .back-to-top{ right:auto; left:22px; }
+@media (max-width:640px){
+  [dir="rtl"] .floating-whatsapp{ left:16px; }
+  [dir="rtl"] .back-to-top{ left:16px; }
+}
+
+/* skip link anchors to the reading-start edge */
+[dir="rtl"] .skip-link{ left:auto; right:16px; }
+
+/* keep the language switcher reading "EN | ع" in the same order on both pages */
+[dir="rtl"] .lang-switch{ direction:ltr; }
